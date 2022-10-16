@@ -1,0 +1,88 @@
+version: "3"
+
+networks:
+    laravel-project-management:
+        driver: bridge
+
+volumes:
+    laravel-project-management-mysql:
+        driver: local
+    laravel-project-management-redis:
+        driver: local
+
+services:
+    app:
+        build:
+            context: ./docker/php8.1
+            dockerfile: Dockerfile
+            args:
+                WWWGROUP: "${WWWGROUP:-1000}"
+        image: laravel-project-management/app
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        ports:
+            - "${APP_PORT:-80}:80"
+            - "${VITE_PORT:-5173}:${VITE_PORT:-5173}"
+        environment:
+            WWWUSER: "${WWWUSER:-1000}"
+            LARAVEL_laravel-project-management: 1
+            XDEBUG_MODE: "${SAIL_XDEBUG_MODE:-off}"
+            XDEBUG_CONFIG: "${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}"
+        volumes:
+            - ".:/var/www/html"
+        networks:
+            - laravel-project-management
+        depends_on:
+            - db
+            - redis
+            - mailhog
+
+    db:
+        image: "mysql/mysql-server:8.0"
+        ports:
+            - "${FORWARD_DB_PORT:-3306}:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: "${DB_PASSWORD:-root}"
+            MYSQL_ROOT_HOST: "%"
+            MYSQL_DATABASE: "${DB_DATABASE:-project_management}"
+            MYSQL_USER: "${DB_USERNAME:-app}"
+            MYSQL_PASSWORD: "${DB_PASSWORD:-app}"
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+            BIND-ADDRESS: 0.0.0.0
+        volumes:
+            - "laravel-project-management-mysql:/var/lib/mysql"
+            - "./docker/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh"
+        networks:
+            - laravel-project-management
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
+            retries: 3
+            timeout: 5s
+
+    redis:
+        image: "redis:alpine"
+        ports:
+            - "${FORWARD_REDIS_PORT:-6379}:6379"
+        volumes:
+            - "laravel-project-management-redis:/data"
+        networks:
+            - laravel-project-management
+        healthcheck:
+            test: ["CMD", "redis-cli", "ping"]
+            retries: 3
+            timeout: 5s
+
+    mailhog:
+        image: "mailhog/mailhog:latest"
+        ports:
+            - "${FORWARD_MAILHOG_PORT:-1025}:1025"
+            - "${FORWARD_MAILHOG_DASHBOARD_PORT:-8025}:8025"
+        networks:
+            - laravel-project-management
+
+    adminer:
+        image: adminer:latest
+        ports:
+            - "${FORWARD_ADMINER_PORT:-8080}:8080"
+        networks:
+            - laravel-project-management
