@@ -12,6 +12,8 @@ Laravel, 案件管理システム
   - [コンテナ](#コンテナ)
   - [機能](#機能)
 - [使い方](#使い方)
+- [その他](#その他)
+  - [初期設定](#初期設定)
 
 <!-- /code_chunk_output -->
 
@@ -64,3 +66,10 @@ git clone [リポジトリURL]
 ### 初期設定
 
 * 認証パッケージ追加
+* locale変更
+* 日本語化
+```bash
+php -r "copy('https://readouble.com/laravel/8.x/ja/install-ja-lang-files.php', 'install-ja-lang.php');"
+php -f install-ja-lang.php
+php -r "unlink('install-ja-lang.php');"
+```
