@@ -27,7 +27,7 @@ require __DIR__ . '/auth.php';
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::prefix('project')->group(function () {
-        Route::get('/', [ProjectIndexController::class, 'index']);
+    Route::prefix('project')->name('project.')->group(function () {
+        Route::get('/', [ProjectIndexController::class, 'index'])->name('index');
     });
 });
