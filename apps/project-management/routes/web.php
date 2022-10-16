@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Project\Presentation\Controllers\ProjectIndexController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +22,12 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
+
+
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::prefix('project')->group(function () {
+        Route::get('/', [ProjectIndexController::class, 'index']);
+    });
+});

@@ -212,7 +212,7 @@ elif [ "$1" == "npm" ]; then
 elif [ "$1" == "ci" ]; then
     ${CMD_DOCKER} exec -u ${APP_USER} ${APP_CONTAINER} vendor/bin/phpcbf --standard=phpcs.xml
     ${CMD_DOCKER} exec -u ${APP_USER} ${APP_CONTAINER} vendor/bin/phpcs --standard=phpcs.xml
-    ${CMD_DOCKER} exec -u ${APP_USER} ${APP_CONTAINER} vendor/bin/phpmd app/ text phpmd.xml
+    ${CMD_DOCKER} exec -u ${APP_USER} ${APP_CONTAINER} vendor/bin/phpmd packages/ text phpmd.xml
     ${CMD_DOCKER} exec -u ${APP_USER} ${APP_CONTAINER} vendor/bin/phpstan analyze
     ${CMD_DOCKER} exec -u ${APP_USER} ${APP_CONTAINER} bash -c "export XDEBUG_MODE=off && php artisan test"
 
