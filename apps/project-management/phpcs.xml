@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<ruleset name="PSR12">
+    <!-- 拡張子が php のものにだけ適用 -->
+    <arg name="extensions" value="php" />
+    <!-- rule に PSR12 を指定可能 -->
+    <rule ref="PSR12" />
+
+    <!-- オプション p:進捗表示  s:エラー表示時にルールを表示 -->
+    <arg value="ps" />
+
+    <!-- 対象のファイル、ディレクトリ -->
+    <file>app</file>
+</ruleset>
