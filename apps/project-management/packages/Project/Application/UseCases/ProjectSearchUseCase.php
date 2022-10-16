@@ -2,7 +2,6 @@
 
 namespace Project\Application\UseCases;
 
-use Illuminate\Support\Collection;
 use Project\Application\Queries\ProjectSearchQueryInterface;
 
 /**
@@ -21,10 +20,13 @@ class ProjectSearchUseCase
     /**
      * 検索
      *
-     * @return Collection
+     * @return array{\Illuminate\Support\Collection, int}
      */
-    public function invoke(array $condition, int $page_number): Collection
+    public function invoke(array $condition, int $page_number): array
     {
-        return $this->query->search($condition, $page_number);
+        $list = $this->query->search($condition, $page_number);
+        $count = $this->query->count($condition);
+
+        return [$list, $count];
     }
 }

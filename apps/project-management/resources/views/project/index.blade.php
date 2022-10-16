@@ -17,6 +17,7 @@
                                     <table class="min-w-max w-full table-auto">
                                         <thead>
                                             <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                                                <th class="py-3 px-6 text-left">プロジェクトID</th>
                                                 <th class="py-3 px-6 text-left">プロジェクト</th>
                                                 <th class="py-3 px-6 text-center">状態</th>
                                                 <th class="py-3 px-6 text-left">担当者</th>
@@ -26,6 +27,7 @@
                                         <tbody class="text-gray-600 text-sm font-light">
                                             @foreach ($page->list as $item)
                                             <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                                <td class="py-3 px-6 text-left">{{ $item->id }}</td>
                                                 <td class="py-3 px-6 text-left">{{ $item->title }}</td>
                                                 <td class="py-3 px-6 text-center">{{ $item->status }}</td>
                                                 <td class="py-3 px-6 text-center">{{ $item->assign_to }}</td>
@@ -68,6 +70,7 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                {{ $page->paginator->links() }}
                             </div>
                         </div>
                     </div>

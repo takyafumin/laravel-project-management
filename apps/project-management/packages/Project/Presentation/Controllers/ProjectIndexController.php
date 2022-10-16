@@ -27,14 +27,17 @@ class ProjectIndexController extends Controller
         $page_number = $request->input('page') ?? 1;
 
         // 検索
-        $list = $use_case->invoke($condition, $page_number);
+        /** @var \Illuminate\Support\Collection $list */
+        list($list, $total_count) = $use_case->invoke($condition, $page_number);
 
         // 画面表示
         return view('project.index', [
             'page' => new ProjectSearchResponse(
                 $condition,
                 $page_number,
-                $list
+                $list,
+                $total_count,
+                $request->path()
             ),
         ]);
     }

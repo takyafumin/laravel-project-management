@@ -50,4 +50,21 @@ class ProjectSearchQuery implements ProjectSearchQueryInterface
 
         return $query->get();
     }
+
+    /**
+     * 件数取得
+     *
+     * @param array $condition 検索条件
+     * @return integer
+     */
+    public function count(array $condition): int
+    {
+        // Query
+        $query = $this->projectModel->query();
+
+        // Select
+        $query->select(['id', 'title', 'status', 'assign_to']);
+
+        return $query->count();
+    }
 }

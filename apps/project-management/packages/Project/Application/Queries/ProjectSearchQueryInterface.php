@@ -21,4 +21,12 @@ interface ProjectSearchQueryInterface
      * @return Collection
      */
     public function search(array $condition, $page_number = 1, $per_page = self::PER_PAGE): Collection;
+
+    /**
+     * 件数取得
+     *
+     * @param array $condition 検索条件
+     * @return integer
+     */
+    public function count(array $condition): int;
 }
