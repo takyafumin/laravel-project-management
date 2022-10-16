@@ -38,8 +38,17 @@ class ProjectSearchQuery implements ProjectSearchQueryInterface
         // Query
         $query = $this->projectModel->query();
 
+        // join
+        $query->leftJoin('users', 'projects.assign_to', '=', 'users.id');
+
         // Select
-        $query->select(['id', 'title', 'status', 'assign_to']);
+        $query->select([
+            'projects.id',
+            'projects.title',
+            'projects.status',
+            'projects.assign_to',
+            'users.name as user_name'
+        ]);
 
         // Order by
         $query->orderBy('id', 'asc');
@@ -62,8 +71,11 @@ class ProjectSearchQuery implements ProjectSearchQueryInterface
         // Query
         $query = $this->projectModel->query();
 
+        // join
+        $query->leftJoin('users', 'projects.assign_to', '=', 'users.id');
+
         // Select
-        $query->select(['id', 'title', 'status', 'assign_to']);
+        $query->select(['projects.id']);
 
         return $query->count();
     }

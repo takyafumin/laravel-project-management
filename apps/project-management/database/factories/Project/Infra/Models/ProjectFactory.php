@@ -2,6 +2,7 @@
 
 namespace Database\Factories\Project\Infra\Models;
 
+use App\Models\User;
 use App\Types\ProjectStatus;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -21,6 +22,11 @@ class ProjectFactory extends Factory
      */
     public function definition()
     {
+        // user id list
+        $users = User::select(['id'])->get()->map(function ($model, $key) {
+            return $model->id;
+        })->toArray();
+
         return [
             'title'       => $this->faker->name() . 'のお仕事',
             'description' => $this->faker->realText(100),
@@ -29,6 +35,7 @@ class ProjectFactory extends Factory
                     return $value->value;
                 }))->toArray()
             ),
+            'assign_to'   => $this->faker->randomElement(array_merge([null], $users)),
             'created_at'  => CarbonImmutable::now(),
         ];
     }

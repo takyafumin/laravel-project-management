@@ -13,7 +13,7 @@
                     <th class="py-3 px-6 text-left">プロジェクトID</th>
                     <th class="py-3 px-6 text-left">プロジェクト</th>
                     <th class="py-3 px-6 text-center">状態</th>
-                    <th class="py-3 px-6 text-left">担当者</th>
+                    <th class="py-3 px-6 text-center">担当者</th>
                     <th class="py-3 px-6 text-center">Actions</th>
                 </tr>
             </thead>
@@ -27,7 +27,7 @@
                             App\Types\ProjectStatus::create($item->status)->label() }}
                         </span>
                     </td>
-                    <td class="py-3 px-6 text-center">{{ $item->assign_to }}</td>
+                    <td class="py-3 px-6 text-center">{{ $item->user_name }}</td>
                     <td class="py-3 px-6 text-center">
                         <div class="flex item-center justify-center">
                             <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
