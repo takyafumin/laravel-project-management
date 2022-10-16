@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /** @var string テーブル名 */
+    private const TABLE_NAME = 'projects';
+
     /**
      * Run the migrations.
      *
@@ -13,9 +16,28 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('projects', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create(self::TABLE_NAME, function (Blueprint $table) {
+            // comment
+            $table->comment('プロジェクト');
+
+            // column
+            $table->id()->comment('プロジェクトID');
+            $table->string('title', 50)->comment('プロジェクト名');
+            $table->string('description', 255)->nullable()->comment('プロジェクト詳細');
+            $table->tinyInteger('status')->comment('状態');
+            $table->unsignedBigInteger('assign_to')->nullable()->comment('担当者');
+            $table->dateTime('created_at')->comment('登録日時');
+            $table->dateTime('updated_at')->nullable()->comment('更新日時');
+            $table->dateTime('deleted_at')->nullable()->comment('削除日時');
+
+            // index
+            $table->index('title');
+            $table->index('status');
+            $table->index('assign_to');
+            $table->index('deleted_at');
+
+            // foreign key
+            $table->foreign('assign_to')->references('id')->on('users');
         });
     }
 
@@ -26,6 +48,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('projects');
+        Schema::dropIfExists(self::TABLE_NAME);
     }
 };
