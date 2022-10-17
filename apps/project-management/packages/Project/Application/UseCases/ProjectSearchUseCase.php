@@ -20,11 +20,15 @@ class ProjectSearchUseCase
     /**
      * 検索
      *
+     * @param array $condition 検索条件配列
+     * @param integer $page_number ページ番号
+     * @param integer $per_page ページあたり件数
+     *
      * @return array{\Illuminate\Support\Collection, int}
      */
-    public function invoke(array $condition, int $page_number): array
+    public function invoke(array $condition, int $page_number, int $per_page): array
     {
-        $list = $this->query->search($condition, $page_number);
+        $list = $this->query->search($condition, $page_number, $per_page);
         $count = $this->query->count($condition);
 
         return [$list, $count];

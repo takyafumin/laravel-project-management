@@ -27,10 +27,10 @@ class ProjectSearchQuery implements ProjectSearchQueryInterface
      *
      * @param array $condition 検索条件
      * @param integer $page_number ページ番号
-     * @param integer $per_page 1ページあたりの表示件数
+     * @param integer $per_page ページあたりの表示件数
      * @return Collection
      */
-    public function search(array $condition, $page_number = 1, $per_page = self::PER_PAGE): Collection
+    public function search(array $condition, int $page_number, int $per_page): Collection
     {
         $limit  = $per_page;
         $offset = $this->getOffset($page_number, $per_page);

@@ -40,4 +40,14 @@ class ProjectSearchRequest extends FormRequest
     {
         return [];
     }
+
+    /**
+     * ページ番号を返却する
+     *
+     * @return integer
+     */
+    public function getPageNumber(): int
+    {
+        return $this->input('page') ?? 1;
+    }
 }

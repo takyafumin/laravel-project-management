@@ -24,11 +24,14 @@ class ProjectIndexController extends Controller
         // 検索条件
         // ページ番号
         $condition   = $request->toCondition();
-        $page_number = $request->input('page') ?? 1;
+        $page_number = $request->getPageNumber();
 
         // 検索
-        /** @var \Illuminate\Support\Collection $list */
-        list($list, $total_count) = $use_case->invoke($condition, $page_number);
+        list($list, $total_count) = $use_case->invoke(
+            $condition,
+            $page_number,
+            ProjectSearchResponse::PER_PAGE
+        );
 
         // 画面表示
         return view('project.index', [
