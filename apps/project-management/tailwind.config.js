@@ -12,7 +12,11 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ["Nunito", ...defaultTheme.fontFamily.sans],
+                sans: [
+                    "ヒラギノ丸ゴ ProN W4",
+                    "Hiragino Maru Gothic ProN",
+                    ...defaultTheme.fontFamily.sans,
+                ],
             },
         },
     },

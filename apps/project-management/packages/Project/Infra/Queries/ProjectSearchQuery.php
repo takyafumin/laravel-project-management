@@ -5,6 +5,7 @@ namespace Project\Infra\Queries;
 use App\Supports\Paginator;
 use Illuminate\Support\Collection;
 use Project\Application\Queries\ProjectSearchQueryInterface;
+use Project\Domain\ValueObjects\ProjectId;
 use Project\Infra\Models\Project;
 
 /**
@@ -78,5 +79,35 @@ class ProjectSearchQuery implements ProjectSearchQueryInterface
         $query->select(['projects.id']);
 
         return $query->count();
+    }
+
+    /**
+     * 詳細データ取得
+     *
+     * @param ProjectId $id プロジェクトID
+     * @return array
+     */
+    public function find(ProjectId $id): array
+    {
+        // Query
+        $query = $this->projectModel->query();
+
+        // join
+        $query->leftJoin('users', 'projects.assign_to', '=', 'users.id');
+
+        // select
+        $query->select([
+            'projects.id as id',
+            'projects.title as title',
+            'projects.description as description',
+            'projects.status as status',
+            'projects.assign_to as assign_to',
+            'users.name as user_name',
+        ]);
+
+        // where
+        $query->where('projects.id', '=', $id->value());
+
+        return $query->firstOrFail()->toArray();
     }
 }

@@ -2,8 +2,8 @@
 
 namespace Project\Application\Queries;
 
-use App\Supports\Paginator;
 use Illuminate\Support\Collection;
+use Project\Domain\ValueObjects\ProjectId;
 
 /**
  * Project Search QueryInterface
@@ -27,4 +27,12 @@ interface ProjectSearchQueryInterface
      * @return integer
      */
     public function count(array $condition): int;
+
+    /**
+     * 詳細データ取得
+     *
+     * @param ProjectId $id プロジェクトID
+     * @return array
+     */
+    public function find(ProjectId $id): array;
 }

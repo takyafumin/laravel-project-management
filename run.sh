@@ -225,7 +225,7 @@ elif [ "$1" == "fix" ]; then
     ${CMD_DOCKER} exec -u ${APP_USER} ${APP_CONTAINER} vendor/bin/phpcbf --standard=phpcs.xml $@
 
 elif [ "$1" == "phpmd" ]; then
-    ${CMD_DOCKER} exec -u ${APP_USER} ${APP_CONTAINER} vendor/bin/phpmd app/ text phpmd.xml
+    ${CMD_DOCKER} exec -u ${APP_USER} ${APP_CONTAINER} vendor/bin/phpmd packages/ text phpmd.xml
 
 elif [ "$1" == "larastan" ]; then
     ${CMD_DOCKER} exec -u ${APP_USER} ${APP_CONTAINER} vendor/bin/phpstan analyze
