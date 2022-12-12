@@ -3,12 +3,10 @@
 namespace Project\Application\UseCases;
 
 use Project\Application\Queries\ProjectSearchQueryInterface;
-use Project\Domain\Entities\Project;
 use Project\Domain\ValueObjects\ProjectId;
-use Project\Infra\Queries\ProjectSearchQuery;
 
 /**
- * Project Show UseCase
+ * 詳細データ表示 UseCase
  */
 class ProjectShowUseCase
 {

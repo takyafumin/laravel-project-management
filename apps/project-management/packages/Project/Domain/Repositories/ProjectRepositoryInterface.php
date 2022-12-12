@@ -13,8 +13,16 @@ interface ProjectRepositoryInterface
     /**
      * リポジトリからデータを取得する
      *
-     * @param ProjectId $id プロジェクトID
+     * @param  ProjectId $id プロジェクトID
      * @return Project
      */
     public function get(ProjectId $id): Project;
+
+    /**
+     * データを保存する
+     *
+     * @param  Project $project 登録する情報
+     * @return false|Project
+     */
+    public function save(Project $project): bool|Project;
 }

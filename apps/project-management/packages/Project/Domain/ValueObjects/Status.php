@@ -2,12 +2,12 @@
 
 namespace Project\Domain\ValueObjects;
 
-use App\Types\ProjectStatus as TypesProjectStatus;
+use App\Types\ProjectStatus;
 
 /**
  * プロジェクト状態
  *
- * @property TypesProjectStatus $status プロジェクト状態
+ * @property ProjectStatus $status プロジェクト状態
  */
 class Status
 {
@@ -19,13 +19,13 @@ class Status
     public function __construct(
         int $status
     ) {
-        $this->status = TypesProjectStatus::create($status);
+        $this->status = ProjectStatus::create($status);
     }
 
     /**
-     * @return TypesProjectStatus
+     * @return ProjectStatus
      */
-    public function value(): TypesProjectStatus
+    public function value(): ProjectStatus
     {
         return $this->status;
     }

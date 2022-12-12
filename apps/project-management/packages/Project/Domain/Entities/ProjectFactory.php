@@ -2,6 +2,7 @@
 
 namespace Project\Domain\Entities;
 
+use App\Types\ProjectStatus;
 use Project\Domain\ValueObjects\AssignTo;
 use Project\Domain\ValueObjects\Description;
 use Project\Domain\ValueObjects\ProjectId;
@@ -17,10 +18,10 @@ class ProjectFactory
     /**
      * EloquentModelからEntityを生成する
      *
-     * @param \Project\Infra\Models\Project $projectModel Eloquent Model
+     * @param  \Project\Infra\Models\Project $projectModel Eloquent Model
      * @return Project
      */
-    public function fromDb(ProjectModel $projectModel): Project
+    public function eloquent(ProjectModel $projectModel): Project
     {
         return new Project(
             new ProjectId($projectModel->id),
@@ -28,6 +29,38 @@ class ProjectFactory
             new Description($projectModel->description),
             new Status($projectModel->status),
             new AssignTo($projectModel->assign_to)
+        );
+    }
+
+    /**
+     * @param  array $form 画面入力値
+     * @return Project
+     */
+    public function array(array $form): Project
+    {
+        return new Project(
+            new ProjectId($form['id']),
+            new Title($form['title']),
+            isset($form['description']) ? new Description($form['description']) : null,
+            new Status($form['status']),
+            new AssignTo($form['assign_to'])
+        );
+    }
+
+    /**
+     * 新規作成
+     *
+     * @param array $form 画面入力値
+     * @return Project
+     */
+    public function create(array $form): Project
+    {
+        return new Project(
+            null,
+            new Title($form['title']),
+            isset($form['description']) ? new Description($form['description']) : null,
+            new Status(ProjectStatus::NEW->value),
+            isset($form['assign_to']) ? new AssignTo($form['assign_to']) : null
         );
     }
 }

@@ -34,7 +34,8 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
-            "Project\\": "packages/Project/"
+            "Project\\": "packages/Project/",
+            "Support\\": "packages/Support/"
         },
         "files": [
             "app/Supports/helpers.php"

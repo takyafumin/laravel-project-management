@@ -10,22 +10,35 @@ use Project\Domain\ValueObjects\Title;
 
 /**
  * Project Entity
+ *
+ * @property ProjectId $id
+ * @property Title $title
+ * @property Description $description
+ * @property Status $status
+ * @property AssignTo $assign_to
  */
 class Project
 {
+    public function __get(string $name)
+    {
+        if (property_exists($this, $name)) {
+            return $this->{$name};
+        }
+    }
+
     /**
-     * @param ProjectId $id プロジェクトID
-     * @param Title $title プロジェクト名
-     * @param Description $description プロジェクト詳細
-     * @param Status $status プロジェクト状態
-     * @param AssignTo $assign_to プロジェクト担当者
+     * @param ProjectId|null   $id          プロジェクトID
+     * @param Title            $title       プロジェクト名
+     * @param Description|null $description プロジェクト詳細
+     * @param Status           $status      プロジェクト状態
+     * @param AssignTo|null    $assign_to   プロジェクト担当者
      */
     public function __construct(
-        private ProjectId $id,
+        private ?ProjectId $id,
         private Title $title,
-        private Description $description,
+        private ?Description $description,
         private Status $status,
-        private AssignTo $assign_to
+        private ?AssignTo $assign_to
     ) {
     }
 
@@ -37,11 +50,10 @@ class Project
     public function toArray(): array
     {
         return [
-            'id'          => $this->id->value(),
             'title'       => $this->title->value(),
-            'description' => $this->description->value(),
-            'status'      => $this->status->value(),
-            'assign_to'   => $this->assign_to->value(),
+            'description' => $this->description?->value(),
+            'status'      => $this->status->value()->value,
+            'assign_to'   => $this->assign_to?->value(),
         ];
     }
 }

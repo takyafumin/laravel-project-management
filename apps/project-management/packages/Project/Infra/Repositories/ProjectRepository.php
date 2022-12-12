@@ -14,8 +14,8 @@ use Project\Infra\Models\Project as ProjectModel;
 class ProjectRepository implements ProjectRepositoryInterface
 {
     /**
-     * @param ProjectModel $projectModel プロジェクト Eloquent Model
-     * @param ProjectFactory $factory プロジェクト Factory
+     * @param ProjectModel   $projectModel プロジェクトEloquent Model
+     * @param ProjectFactory $factory      プロジェクトFactory
      */
     public function __construct(
         private ProjectModel $projectModel,
@@ -26,7 +26,7 @@ class ProjectRepository implements ProjectRepositoryInterface
     /**
      * リポジトリからデータを取得する
      *
-     * @param ProjectId $id プロジェクトID
+     * @param  ProjectId $id プロジェクトID
      * @return Project Project Entity
      */
     public function get(ProjectId $id): Project
@@ -35,6 +35,26 @@ class ProjectRepository implements ProjectRepositoryInterface
         $model = $this->projectModel->findOrFail($id->value());
 
         // ドメインモデル返却
-        return $this->factory->fromDb($model);
+        return $this->factory->eloquent($model);
+    }
+
+    /**
+     * データを保存する
+     *
+     * @param  Project $project 登録する情報
+     * @return false|Project
+     */
+    public function save(Project $project): bool|Project
+    {
+        $model = $this->projectModel->newInstance();
+        $model->fill($project->toArray());
+
+        // 保存
+        $result = $model->save();
+        if (!$result) {
+            return false;
+        }
+
+        return $this->factory->eloquent($model);
     }
 }
