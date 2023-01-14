@@ -9,5 +9,5 @@
     <arg value="ps" />
 
     <!-- 対象のファイル、ディレクトリ -->
-    <file>app</file>
+    <file>packages</file>
 </ruleset>
