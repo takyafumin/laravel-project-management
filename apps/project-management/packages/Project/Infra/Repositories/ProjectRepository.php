@@ -29,6 +29,8 @@ class ProjectRepository implements ProjectRepositoryInterface
      * @param  ProjectId $id プロジェクトID
      * @param  bool $lock データロックするか
      * @return Project Project Entity
+     *
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
     public function findById(ProjectId $id, bool $lock = false): Project
     {

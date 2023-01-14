@@ -25,6 +25,8 @@ class DomainRuleException extends Exception
     /**
      * @param mixed $request Request
      * @return RedirectResponse
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function render($request)
     {

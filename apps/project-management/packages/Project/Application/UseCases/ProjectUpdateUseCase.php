@@ -18,12 +18,10 @@ class ProjectUpdateUseCase
 {
     /**
      * @param ProjectRepositoryInterface $repository       repository
-     * @param ProjectFactory             $factory          factory
      * @param UserExistsRule             $user_exists_rule user exists rule
      */
     public function __construct(
         private ProjectRepositoryInterface $repository,
-        private ProjectFactory $factory,
         private UserExistsRule $user_exists_rule,
     ) {
     }

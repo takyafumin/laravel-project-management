@@ -24,7 +24,7 @@ class ProjectEditUseCase
      * 更新画面表示処理
      *
      * @param int $id ID
-     * @return array{0:Collection, 1:array} [ユーザリスト, プロジェクト情報配列]
+     * @return array{0:\Illuminate\Support\Collection, 1:array} [ユーザリスト, プロジェクト情報配列]
      */
     public function invoke(int $id): array
     {

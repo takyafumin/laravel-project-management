@@ -52,8 +52,7 @@ class Project
     public function editAttributes(
         Title $title,
         ?Description $description,
-    ): void
-    {
+    ): void {
         $this->title       = $title;
         $this->description = $description;
     }
@@ -64,7 +63,7 @@ class Project
      * @param AssignTo $assign_to 担当者
      * @return void
      */
-    public function assignTo(AssignTo $assign_to):void
+    public function assignTo(AssignTo $assign_to): void
     {
         $this->assign_to = $assign_to;
     }

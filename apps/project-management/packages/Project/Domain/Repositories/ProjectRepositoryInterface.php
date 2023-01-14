@@ -16,6 +16,8 @@ interface ProjectRepositoryInterface
      * @param  ProjectId $id プロジェクトID
      * @param  bool $lock データロックするか
      * @return Project
+     *
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
     public function findById(ProjectId $id, bool $lock = false): Project;
 
