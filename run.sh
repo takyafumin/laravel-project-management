@@ -29,10 +29,11 @@ if [ "$MACHINE" == "UNKNOWN" ]; then
 fi
 
 PATH_PREFIX=
-CMD_DOCKER="docker-compose"
+CMD_DOCKER="docker-compose -f docker-compose.yml"
 if [ "$MACHINE" == "win" ]; then
     PATH_PREFIX=/
-    CMD_DOCKER="docker-compose"
+elif [ "$MACHINE" == "mac" ]; then
+    CMD_DOCKER="docker-compose -f docker-compose.yml -f docker-compose.m1mac.yml"
 fi
 
 

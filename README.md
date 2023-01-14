@@ -73,3 +73,26 @@ php -r "copy('https://readouble.com/laravel/8.x/ja/install-ja-lang-files.php', '
 php -f install-ja-lang.php
 php -r "unlink('install-ja-lang.php');"
 ```
+
+### xdebug設定
+
+* .vscode/launch.json
+
+```
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Listen for Xdebug",
+            "type": "php",
+            "request": "launch",
+            "port": 9003,
+            "hostname": "0.0.0.0",
+            "pathMappings": {
+                "/var/www/html": "${workspaceRoot}/apps/project-management"
+            }
+        },
+    ]
+}
+
+```

@@ -1,0 +1,6 @@
+version: "3"
+
+services:
+
+    mailhog:
+        platform: linux/amd64
