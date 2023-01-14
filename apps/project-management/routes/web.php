@@ -38,6 +38,8 @@ Route::middleware(['auth', 'verified'])->group(
                 Route::get('create', [ProjectIndexController::class, 'create'])->name('create');
                 Route::post('store', [ProjectIndexController::class, 'store'])->name('store');
                 Route::get('{id}', [ProjectIndexController::class, 'show'])->name('show');
+                Route::get('{id}/edit', [ProjectIndexController::class, 'edit'])->name('edit');
+                Route::post('{id}/update', [ProjectIndexController::class, 'update'])->name('update');
             }
         );
     }

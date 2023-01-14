@@ -14,9 +14,10 @@ interface ProjectRepositoryInterface
      * リポジトリからデータを取得する
      *
      * @param  ProjectId $id プロジェクトID
+     * @param  bool $lock データロックするか
      * @return Project
      */
-    public function get(ProjectId $id): Project;
+    public function findById(ProjectId $id, bool $lock = false): Project;
 
     /**
      * データを保存する

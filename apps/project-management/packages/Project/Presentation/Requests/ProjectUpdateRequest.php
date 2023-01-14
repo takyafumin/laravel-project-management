@@ -16,7 +16,7 @@ class ProjectUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -27,7 +27,33 @@ class ProjectUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title'       => ['required', 'max:50'],
+            'description' => ['max:255'],
+            'assign_to'   => ['required'],
         ];
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'title'       => 'プロジェクト名',
+            'description' => 'プロジェクト詳細',
+            'assign_to'   => '担当者',
+        ];
+    }
+
+    /**
+     * 画面入力値を返却する
+     *
+     * @return array
+     */
+    public function toForm(): array
+    {
+        return $this->all();
     }
 }

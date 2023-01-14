@@ -43,6 +43,33 @@ class Project
     }
 
     /**
+     * 属性情報を変更する
+     *
+     * @param Title            $title       プロジェクト名
+     * @param Description|null $description プロジェクト詳細
+     * @return void
+     */
+    public function editAttributes(
+        Title $title,
+        ?Description $description,
+    ): void
+    {
+        $this->title       = $title;
+        $this->description = $description;
+    }
+
+    /**
+     * 担当者を設定する
+     *
+     * @param AssignTo $assign_to 担当者
+     * @return void
+     */
+    public function assignTo(AssignTo $assign_to):void
+    {
+        $this->assign_to = $assign_to;
+    }
+
+    /**
      * 配列に変換する
      *
      * @return array

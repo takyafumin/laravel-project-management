@@ -6,7 +6,7 @@ use Project\Domain\Entities\Project;
 use Project\Domain\Entities\ProjectFactory;
 use Project\Domain\Repositories\ProjectRepositoryInterface;
 use Project\Domain\ValueObjects\ProjectId;
-use Project\Infra\Models\Project as ProjectModel;
+use Project\Infra\Models\Project as ProjectEloquentModel;
 
 /**
  * Project Repository
@@ -14,11 +14,11 @@ use Project\Infra\Models\Project as ProjectModel;
 class ProjectRepository implements ProjectRepositoryInterface
 {
     /**
-     * @param ProjectModel   $projectModel プロジェクトEloquent Model
+     * @param ProjectEloquentModel   $projectModel プロジェクトEloquent Model
      * @param ProjectFactory $factory      プロジェクトFactory
      */
     public function __construct(
-        private ProjectModel $projectModel,
+        private ProjectEloquentModel $projectModel,
         private ProjectFactory $factory,
     ) {
     }
@@ -27,11 +27,13 @@ class ProjectRepository implements ProjectRepositoryInterface
      * リポジトリからデータを取得する
      *
      * @param  ProjectId $id プロジェクトID
+     * @param  bool $lock データロックするか
      * @return Project Project Entity
      */
-    public function get(ProjectId $id): Project
+    public function findById(ProjectId $id, bool $lock = false): Project
     {
         // データ取得
+        // TODO ロック処理を実装
         $model = $this->projectModel->findOrFail($id->value());
 
         // ドメインモデル返却
@@ -41,20 +43,34 @@ class ProjectRepository implements ProjectRepositoryInterface
     /**
      * データを保存する
      *
-     * @param  Project $project 登録する情報
+     * @param  Project $entity 永続化するEntity
      * @return false|Project
      */
-    public function save(Project $project): bool|Project
+    public function save(Project $entity): bool|Project
     {
-        $model = $this->projectModel->newInstance();
-        $model->fill($project->toArray());
+        $eloquent = $this->createEloquentModel($entity->id);
+        $eloquent->fill($entity->toArray());
 
         // 保存
-        $result = $model->save();
-        if (!$result) {
+        if (!$eloquent->save()) {
             return false;
         }
 
-        return $this->factory->eloquent($model);
+        return $this->factory->eloquent($eloquent);
+    }
+
+    /**
+     * EloquentModelを生成する
+     *
+     * @param ProjectId|null $project_id ID
+     * @return ProjectEloquentModel
+     */
+    private function createEloquentModel(?ProjectId $project_id): ProjectEloquentModel
+    {
+        if (is_null($project_id)) {
+            return $this->projectModel->newInstance();
+        }
+
+        return $this->projectModel->findOrFail($project_id->value());
     }
 }

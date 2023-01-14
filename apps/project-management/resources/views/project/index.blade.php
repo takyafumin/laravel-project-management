@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-end">
                 <button
-                    class="btn-to-create bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 border border-green-500 rounded"
+                    class="btn-move-page bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 border border-green-500 rounded"
                     data-url="{{ route('project.create') }}">
                     新規登録
                 </button>
@@ -42,7 +42,7 @@
                         <td class="py-3 px-6 text-center">{{ $item->user_name }}</td>
                         <td class="py-3 px-6 text-center">
                             <button
-                                class="btn-to-detail bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hover:cursor-pointer"
+                                class="btn-move-page bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hover:cursor-pointer"
                                 data-url="{{ route('project.show', $item->id) }}">
                                 詳細
                             </button>
@@ -55,15 +55,8 @@
     {{ $page->paginator->links() }}
 
     <script>
-        const detailButtons = document.getElementsByClassName('btn-to-detail');
-        Array.from(detailButtons).forEach(function(element) {
-            element.addEventListener('click', function() {
-                window.location.href = this.dataset.url;
-            });
-        });
-
-        const createButtons = document.getElementsByClassName('btn-to-create');
-        Array.from(createButtons).forEach(function(element) {
+        const btns = document.getElementsByClassName('btn-move-page');
+        Array.from(btns).forEach(function(element) {
             element.addEventListener('click', function() {
                 window.location.href = this.dataset.url;
             });

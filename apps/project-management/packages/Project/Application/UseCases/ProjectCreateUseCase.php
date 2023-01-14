@@ -24,7 +24,7 @@ class ProjectCreateUseCase
      *
      * @return Collection
      */
-    public function invoke()
+    public function invoke(): Collection
     {
         return $this->user_list_query->list();
     }

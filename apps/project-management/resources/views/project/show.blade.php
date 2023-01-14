@@ -10,7 +10,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-start">
                 <button
-                    class="btn-to-back bg-white hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                    class="btn-move-page bg-white hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                     data-url="{{ route('project.index') }}">
                     戻る
                 </button>
@@ -47,13 +47,20 @@
                         {{ $page->project['user_name'] }}
                     </div>
 
+                    <div class="flex justify-end mt-7">
+                        <button
+                            class="btn-move-page bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 border border-green-500 rounded"
+                            type="button" data-url="{{ route('project.edit', $page->project['id']) }}">
+                            編集する
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        const btns = document.getElementsByClassName('btn-to-back');
+        const btns = document.getElementsByClassName('btn-move-page');
         Array.from(btns).forEach(function(element) {
             element.addEventListener('click',function() {
                 window.location.href = this.dataset.url;

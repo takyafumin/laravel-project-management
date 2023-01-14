@@ -33,21 +33,6 @@ class ProjectFactory
     }
 
     /**
-     * @param  array $form 画面入力値
-     * @return Project
-     */
-    public function array(array $form): Project
-    {
-        return new Project(
-            new ProjectId($form['id']),
-            new Title($form['title']),
-            isset($form['description']) ? new Description($form['description']) : null,
-            new Status($form['status']),
-            new AssignTo($form['assign_to'])
-        );
-    }
-
-    /**
      * 新規作成
      *
      * @param array $form 画面入力値

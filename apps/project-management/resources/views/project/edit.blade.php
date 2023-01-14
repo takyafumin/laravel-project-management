@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('プロジェクト新規登録') }}
+            {{ __('プロジェクト編集') }}
         </h2>
     </x-slot>
 
@@ -23,11 +23,11 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="max-w-2xl mx-auto py-4">
-                    <form method="POST" action="{{ route('project.store') }}">
+                    <form method="POST" action="{{ route('project.update', $page->project['id']) }}">
                         @csrf
                         <div>
                             <x-label for="title" value="プロジェクト名" />
-                            <input type="text" id="title" name="title" value="{{ old('title') }}"
+                            <input type="text" id="title" name="title" value="{{ old('title', $page->project['title']) }}"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="プロジェクト名を入力してください" required>
                         </div>
@@ -36,14 +36,14 @@
                             <x-label for="description" value="プロジェクト詳細" />
                             <textarea id="description" name="description" rows="4"
                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="プロジェクト内容を入力してください">{{ old('description') }}</textarea>
+                                placeholder="プロジェクト内容を入力してください">{{ old('description', $page->project['description']) }}</textarea>
                         </div>
 
                         <div class="mt-4">
                             <x-label for="status" value="状態" />
                             <span
-                                class="py-1 px-3 rounded-full {{ App\Types\ProjectStatus::iconStyle(App\Types\ProjectStatus::NEW->value) }}">
-                                {{ App\Types\ProjectStatus::NEW->label() }}
+                                class="py-1 px-3 rounded-full {{ App\Types\ProjectStatus::iconStyle(old('status', $page->project['status'])) }}">
+                                {{ App\Types\ProjectStatus::create(old('status', $page->project['status']))->label() }}
                             </span>
                         </div>
 
@@ -53,7 +53,7 @@
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 @foreach ($page->user_list as $user)
                                     <option value="{{ $user->id }}"
-                                        {{ old('assign_to') == $user->id ? 'selected' : '' }}>
+                                        {{ old('assign_to', $page->project['assign_to']) == $user->id ? 'selected' : '' }}>
                                         {{ $user->name }}</option>
                                 @endforeach
                             </select>
@@ -61,9 +61,9 @@
 
                         <div class="flex justify-end mt-7">
                             <button
-                                class="btn-do-store bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 border border-green-500 rounded"
+                                class="btn-do-update bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 border border-green-500 rounded"
                                 type="submit">
-                                登録する
+                                更新する
                             </button>
                         </div>
                     </form>
