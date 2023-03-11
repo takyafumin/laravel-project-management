@@ -35,6 +35,7 @@
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
             "Project\\": "packages/Project/",
+            "Tag\\": "packages/Tag/",
             "Support\\": "packages/Support/"
         },
         "files": [

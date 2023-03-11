@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Project\Presentation\Controllers\ProjectCreateController;
 use Project\Presentation\Controllers\ProjectEditController;
 use Project\Presentation\Controllers\ProjectIndexController;
+use Tag\Presentation\Controllers\TagIndexController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,3 +47,8 @@ Route::middleware(['auth', 'verified'])->group(
         );
     }
 );
+
+// Route::get('/tag/{tag}', function(Tag $tag) {
+//     echo $tag->message();
+// });
+Route::get('/tag/{tag}', [TagIndexController::class, 'index']);
